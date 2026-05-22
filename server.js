@@ -1,3 +1,5 @@
+
+
 import express from 'express';
 import cors from 'cors';
 import { exec } from 'child_process';
@@ -6,6 +8,32 @@ import path from 'path';
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+import fs from 'fs';
+import path from 'path';
+
+// Add this route right above your app.listen() block
+app.get('/', (req, res) => {
+  // Read and serve your App.jsx or an HTML file directly to the client browser
+  res.setHeader('Content-Type', 'text/html');
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vaporwave Studio Pro</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-[#0f0f1b]">
+        <div id="root"></div>
+        <script type="module">
+          // Your frontend processing scripts logic goes here
+        </script>
+    </body>
+    </html>
+  `);
+});
 
 // API Endpoint to process external URL links
 app.post('/api/extract-audio', (req, res) => {
